@@ -28,13 +28,9 @@ with open("shell_scripts_corpus.sh", "w") as f:
     for example in subset["content"]:  # Adjust "content" to match your dataset key
         f.write(example + "\n")
 
-exit()
-
-from tokenizers import ByteLevelBPETokenizer
-
 # Train the tokenizer
 tokenizer = ByteLevelBPETokenizer()
-tokenizer.train(files=["path/to/shell_scripts.sh"], vocab_size=8000, min_frequency=2)
+tokenizer.train(files=["shell_scripts_corpus.sh"], vocab_size=8000, min_frequency=2) # PRN adjust vocab_size/min_frequency? 
 
 # Save and reload the tokenizer
 tokenizer.save_model("tokenizer")

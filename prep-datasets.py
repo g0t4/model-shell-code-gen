@@ -28,9 +28,10 @@ subset = dataset.select(range(1))
 if not os.path.exists("tmp"):
     os.makedirs("tmp")
 
-with open("tmp/shell_scripts_corpus.sh", "w") as f:
-    for example in subset["content"]:  # Adjust "content" to match your dataset key
-        f.write(example + "\n")
+if not os.path.exists("tmp/shell_scripts_corpus.sh"):
+    with open("tmp/shell_scripts_corpus.sh", "w") as f:
+        for example in subset["content"]:  # Adjust "content" to match your dataset key
+            f.write(example + "\n")
 
 # Train the tokenizer
 from tokenizers import ByteLevelBPETokenizer

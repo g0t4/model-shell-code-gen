@@ -53,10 +53,10 @@ tokenizer = ByteLevelBPETokenizer(tokenizer_path + "/vocab.json", tokenizer_path
 subset_tokenizd = subset.map(lambda x: {"tokens": tokenizer.encode(x["content"]).ids})
 print(subset_tokenizd["tokens"][0])  # Example tokenized output
 #
-# VIEW SOME TOKENS:
-# show each token for first 10:
-for i in range(100):
-    print(subset_tokenizd["tokens"][0][i], tokenizer.decode([subset_tokenizd["tokens"][0][i]]))
+# # VIEW SOME TOKENS:
+# # show each token for first 10:
+# for i in range(100):
+#     print(subset_tokenizd["tokens"][0][i], tokenizer.decode([subset_tokenizd["tokens"][0][i]]))
 
 
 

@@ -4,3 +4,6 @@ tokenizers
 # notebook:
 jupyter
 matplotlib
+
+# formatting:
+yapf

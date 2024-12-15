@@ -23,6 +23,13 @@ subset = dataset.select(range(1))
 # tokenized = subset.map(lambda x: {"tokens": simple_tokenizer(x["content"])})
 # print(tokenized["tokens"][0])  # Example tokenized output
 
+# build corpus
+with open("shell_scripts_corpus.sh", "w") as f:
+    for example in subset["content"]:  # Adjust "content" to match your dataset key
+        f.write(example + "\n")
+
+exit()
+
 from tokenizers import ByteLevelBPETokenizer
 
 # Train the tokenizer

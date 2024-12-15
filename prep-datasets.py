@@ -52,11 +52,24 @@ tokenizer = ByteLevelBPETokenizer(tokenizer_path + "/vocab.json", tokenizer_path
 # Tokenize the dataset
 subset_tokenizd = subset.map(lambda x: {"tokens": tokenizer.encode(x["content"]).ids})
 print(subset_tokenizd["tokens"][0])  # Example tokenized output
+print()
 #
 # # VIEW SOME TOKENS:
 # # show each token for first 10:
 # for i in range(100):
 #     print(subset_tokenizd["tokens"][0][i], tokenizer.decode([subset_tokenizd["tokens"][0][i]]))
+
+
+
+def create_training_pairs(tokens, seq_len):
+    # Split into sequences of length seq_len + 1
+    sequences = [tokens[i:i + seq_len + 1] for i in range(len(tokens) - seq_len)]
+    return sequences
+
+seq_len = 50
+pairs = subset_tokenizd.map(lambda x: {"sequences": create_training_pairs(x["tokens"], seq_len)})
+for i in pairs["sequences"][0]:
+    print(tokenizer.decode(i))
 
 
 

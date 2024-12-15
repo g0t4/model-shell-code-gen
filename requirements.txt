@@ -1,6 +1,11 @@
 datasets
 tokenizers
 
+# use 3.12 for venv, 3.13 no go => https://pytorch.org/get-started/locally/
+torch
+torchvision
+torchaudio
+
 # notebook:
 jupyter
 matplotlib

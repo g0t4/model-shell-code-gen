@@ -9,6 +9,7 @@ torchaudio
 # notebook:
 jupyter
 matplotlib
+colorama
 
 # formatting:
 yapf

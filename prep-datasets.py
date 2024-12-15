@@ -37,11 +37,11 @@ if not os.path.exists(corpus_file):
 from tokenizers import ByteLevelBPETokenizer
 
 tokenizer_path = "tmp/trained-tokenizer"
-if not os.path.exists("tmp/trained-tokenizer"):
-    os.makedirs("tmp/trained-tokenizer")
+if not os.path.exists(tokenizer_path):
+    os.makedirs(tokenizer_path)
 
 # Train the tokenizer
-if not os.path.exists("tmp/trained-tokenizer/vocab.json"):
+if not os.path.exists(tokenizer_path + "/vocab.json"):
     tokenizer = ByteLevelBPETokenizer()
     tokenizer.train(files=[corpus_file], vocab_size=8000, min_frequency=2) # PRN adjust vocab_size/min_frequency? 
     tokenizer.save_model(tokenizer_path)

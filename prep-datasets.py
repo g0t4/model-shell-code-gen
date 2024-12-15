@@ -33,16 +33,20 @@ if not os.path.exists("tmp/shell_scripts_corpus.sh"):
         for example in subset["content"]:  # Adjust "content" to match your dataset key
             f.write(example + "\n")
 
-# Train the tokenizer
 from tokenizers import ByteLevelBPETokenizer
-tokenizer = ByteLevelBPETokenizer()
-tokenizer.train(files=["shell_scripts_corpus.sh"], vocab_size=8000, min_frequency=2) # PRN adjust vocab_size/min_frequency? 
 
-# Save and reload the tokenizer
 tokenizer_path = "tmp/trained-tokenizer"
-tokenizer.save_model(tokenizer_path)
+if not os.path.exists("tmp/trained-tokenizer"):
+    os.makedirs("tmp/trained-tokenizer")
+
+# Train the tokenizer
+if not os.path.exists("tmp/trained-tokenizer/vocab.json"):
+    tokenizer = ByteLevelBPETokenizer()
+    tokenizer.train(files=["shell_scripts_corpus.sh"], vocab_size=8000, min_frequency=2) # PRN adjust vocab_size/min_frequency? 
+    tokenizer.save_model(tokenizer_path)
+
+# load the tokenizer
 tokenizer = ByteLevelBPETokenizer(tokenizer_path + "/vocab.json", tokenizer_path + "/merges.txt")
-# tokenizer = ByteLevelBPETokenizer("tokenizer/vocab.json", "tokenizer/merges.txt")
 
 # Tokenize the dataset
 subset_tokenizd = subset.map(lambda x: {"tokens": tokenizer.encode(x["content"]).ids})

@@ -1,3 +1,4 @@
+import os
 from datasets import load_dataset
 
 # FYI export HF_TOKEN=$(pbpaste)
@@ -24,6 +25,9 @@ subset = dataset.select(range(1))
 # print(tokenized["tokens"][0])  # Example tokenized output
 
 # build corpus
+if not os.path.exists("tmp"):
+    os.makedirs("tmp")
+
 with open("tmp/shell_scripts_corpus.sh", "w") as f:
     for example in subset["content"]:  # Adjust "content" to match your dataset key
         f.write(example + "\n")

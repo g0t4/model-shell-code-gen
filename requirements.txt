@@ -1,2 +1,6 @@
 datasets
 tokenizers
+
+# notebook:
+jupyter
+matplotlib

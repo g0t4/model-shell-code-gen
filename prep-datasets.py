@@ -29,15 +29,18 @@ with open("shell_scripts_corpus.sh", "w") as f:
         f.write(example + "\n")
 
 # Train the tokenizer
+from tokenizers import ByteLevelBPETokenizer
 tokenizer = ByteLevelBPETokenizer()
 tokenizer.train(files=["shell_scripts_corpus.sh"], vocab_size=8000, min_frequency=2) # PRN adjust vocab_size/min_frequency? 
 
 # Save and reload the tokenizer
-tokenizer.save_model("tokenizer")
-tokenizer = ByteLevelBPETokenizer("tokenizer/vocab.json", "tokenizer/merges.txt")
+tokenizer_path = "tmp/trained-tokenizer"
+tokenizer.save_model(tokenizer_path)
+tokenizer = ByteLevelBPETokenizer(tokenizer_path + "/vocab.json", tokenizer_path + "/merges.txt")
+# tokenizer = ByteLevelBPETokenizer("tokenizer/vocab.json", "tokenizer/merges.txt")
 
 # Tokenize the dataset
-dataset = dataset.map(lambda x: {"tokens": tokenizer.encode(x["content"]).ids})
-print(dataset["tokens"][0])
+subset_tokenizd = subset.map(lambda x: {"tokens": tokenizer.encode(x["content"]).ids})
+print(subset_tokenizd["tokens"][0])  # Example tokenized output
 
 

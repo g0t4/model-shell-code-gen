@@ -17,10 +17,10 @@ def simple_tokenizer(script):
     tokens = re.findall(r"\w+|[^\w\s]", script, re.UNICODE)
     return tokens
 
-subset = dataset.select(range(100))
-print(subset["content"][0])  # Example script
+subset = dataset.select(range(1))
+# print(subset["content"][0])  # Example script
 # Apply tokenizer to the dataset
-# dataset = dataset.map(lambda x: {"tokens": simple_tokenizer(x["content"])})
-# print(dataset["tokens"][0])  # Example tokenized output
+tokenized = subset.map(lambda x: {"tokens": simple_tokenizer(x["content"])})
+print(tokenized["tokens"][0])  # Example tokenized output
 
 

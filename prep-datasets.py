@@ -28,8 +28,9 @@ subset = dataset.select(range(1))
 if not os.path.exists("tmp"):
     os.makedirs("tmp")
 
-if not os.path.exists("tmp/shell_scripts_corpus.sh"):
-    with open("tmp/shell_scripts_corpus.sh", "w") as f:
+corpus_file = "tmp/shell_scripts_corpus.sh"
+if not os.path.exists(corpus_file):
+    with open(corpus_file, "w") as f:
         for example in subset["content"]:  # Adjust "content" to match your dataset key
             f.write(example + "\n")
 
@@ -42,7 +43,7 @@ if not os.path.exists("tmp/trained-tokenizer"):
 # Train the tokenizer
 if not os.path.exists("tmp/trained-tokenizer/vocab.json"):
     tokenizer = ByteLevelBPETokenizer()
-    tokenizer.train(files=["shell_scripts_corpus.sh"], vocab_size=8000, min_frequency=2) # PRN adjust vocab_size/min_frequency? 
+    tokenizer.train(files=[corpus_file], vocab_size=8000, min_frequency=2) # PRN adjust vocab_size/min_frequency? 
     tokenizer.save_model(tokenizer_path)
 
 # load the tokenizer
